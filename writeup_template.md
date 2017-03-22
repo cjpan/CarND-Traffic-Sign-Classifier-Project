@@ -1,9 +1,5 @@
 # **Traffic Sign Recognition**
 
-## Writeup Template
-
-### You can use this file as a template for your writeup if you want to submit it as a markdown file, but feel free to use some other method and submit a pdf if you prefer.
-
 ---
 
 **Build a Traffic Sign Recognition Project**
@@ -52,7 +48,9 @@ signs data set:
 
 The code for this step is contained in the third code cell of the IPython notebook.  
 
-Here is an exploratory visualization of the data set. It is a bar chart showing examples distributions by each label in train, valid and test sets.
+Here is an exploratory visualization of the data set. It is a bar chart showing examples distributions by each label in train, valid and test sets. The examples distributions are similar in training, validation and test sets. However, the distribution in each set are unbalance. There are more examples of some classes than those of some other classes.
+Oversampling and undersampling may help in this situation.
+(I would try after the project submission.)
 
 ![alt text][image1]
 
