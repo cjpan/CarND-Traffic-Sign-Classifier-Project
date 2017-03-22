@@ -16,7 +16,7 @@ The goals / steps of this project are the following:
 [//]: # (Image References)
 
 [image1]: ./outputs/output_8_0.jpg "Visualization"
-[image2]: ./examples/grayscale.jpg "Random Augmentation"
+[image2]: ./outputs/output_13_1.jpg "Random Augmentation"
 [image3]: ./examples/random_noise.jpg "Augmentation"
 [image4]: ./examples/placeholder.png "Traffic Sign 1"
 [image5]: ./examples/placeholder.png "Traffic Sign 2"
@@ -49,44 +49,33 @@ signs data set:
 The code for this step is contained in the third code cell of the IPython notebook.  
 
 Here is an exploratory visualization of the data set. It is a bar chart showing examples distributions by each label in train, valid and test sets. The examples distributions are similar in training, validation and test sets. However, the distribution in each set are unbalance. There are more examples of some classes than those of some other classes.
-Oversampling and undersampling may help in this situation.
-(I would try after the project submission.)
+Oversampling and undersampling would probably help in this situation.
+(I would try it after the project submission.)
 
 ![alt text][image1]
 
 ### Design and Test a Model Architecture
 
-#### 1. Describe how, and identify where in your code, you preprocessed the image data. What tecniques were chosen and why did you choose these techniques? Consider including images showing the output of each preprocessing technique. Pre-processing refers to techniques such as converting to grayscale, normalization, etc.
+#### 1. Data Augmentation
 
-The code for this step is contained in the fourth code cell of the IPython notebook.
+The code for this step is contained in the 5th code cell to  of the IPython notebook.
 
-As a first step, I decided to convert the images to grayscale because ...
-
-Here is an example of a traffic sign image before and after grayscaling.
-
-![alt text][image2]
-
-As a last step, I normalized the image data because ...
-
-#### 2. Describe how, and identify where in your code, you set up training, validation and testing data. How much data was in each set? Explain what techniques were used to split the data into these sets. (OPTIONAL: As described in the "Stand Out Suggestions" part of the rubric, if you generated additional data for training, describe why you decided to generate additional data, how you generated the data, identify where in your code, and provide example images of the additional data)
-
-The code for splitting the data into training and validation sets is contained in the fifth code cell of the IPython notebook.  
-
-To cross validate my model, I randomly split the training data into a training set and validation set. I did this by ...
+As a first step, I decided to generate additonal data by random translation([-2, 2] pixels in both x and y coodinations), random scaling([-0.9, 1.1] ratio) and random rotation([-15, 15] degrees) to reduce overfitting and make the model more robust to the deformations.
 
 My final training set had X number of images. My validation set and test set had Y and Z number of images.
 
-The sixth code cell of the IPython notebook contains the code for augmenting the data set. I decided to generate additional data because ... To add more data to the the data set, I used the following techniques because ...
+Here is an example of a traffic sign image and a series of augmentation.
 
-Here is an example of an original image and an augmented image:
+![alt text][image2]
+
+#### 2.Data Preprocess
+Second, I convert the color space of datas from original RGB to YUV. And then I do a contrast normalzation in all YUV channels. The normalization is to nomalize all features into same [0, 1] ranges. I also found normalization in YUV spaces gets better performance in training and test than that in RGB spaces.
+
+Here is an example of an original image and a series of preprocessed images:
 
 ![alt text][image3]
 
-The difference between the original data set and the augmented data set is the following ...
-
-
-#### 3. Describe, and identify where in your code, what your final model architecture looks like including model type, layers, layer sizes, connectivity, etc.) Consider including a diagram and/or table describing the final model.
-
+#### 3. Training Model
 The code for my final model is located in the seventh cell of the ipython notebook.
 
 My final model consisted of the following layers:
