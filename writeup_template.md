@@ -34,7 +34,9 @@ You're reading it! and here is a link to my [project code](https://github.com/cj
 
 #### 1. Summary statistics
 
-The code for this step is contained in the second code cell of the IPython notebook.  
+The code for this step is contained in the 1st and 2nd code cells of the IPython notebook.  
+
+There are data files for training set, validation set and testing set. There is no need to split training set for validation because there are independant validation set.
 
 I used the numpy library to calculate summary statistics of the traffic
 signs data set:
@@ -46,7 +48,7 @@ signs data set:
 
 #### 2. Exploratory Visualization
 
-The code for this step is contained in the third code cell of the IPython notebook.  
+The code for this step is contained in the 3rd code cell of the IPython notebook.  
 
 Here is an exploratory visualization of the data set. It is a bar chart showing examples distributions by each label in train, valid and test sets. The examples distributions are similar in training, validation and test sets. However, the distribution in each set are unbalance. There are more examples of some classes than those of some other classes.
 Oversampling and undersampling would probably help in this situation.
@@ -62,33 +64,37 @@ The code for this step is contained in the 5th code cell to  of the IPython note
 
 As a first step, I decided to generate additonal data by random translation([-2, 2] pixels in both x and y coodinations), random scaling([-0.9, 1.1] ratio) and random rotation([-15, 15] degrees) to reduce overfitting and make the model more robust to the deformations.
 
-My final training set had X number of images. My validation set and test set had Y and Z number of images.
-
 Here is an example of a traffic sign image and a series of augmentation.
 
 ![alt text][image2]
 
 #### 2.Data Preprocess
+The code for this step is contained from the 5th code cell to 8th code cell of the IPython notebook.
+
 Second, I convert the color space of datas from original RGB to YUV. And then I do a contrast normalzation in all YUV channels. The normalization is to nomalize all features into same [0, 1] ranges. I also found normalization in YUV spaces gets better performance in training and test than that in RGB spaces.
 
 Here is an example of an original image and a series of preprocessed images:
 
 ![alt text][image3]
 
-#### 3. Training Model
-The code for my final model is located in the seventh cell of the ipython notebook.
+My final training set had 139196 number of images totally. My validation set and test set had 4410 and 12630 number of images(unchanged from the original numbers).
+
+At last step, I shuffle the training set and their labels to generate a random order for training. This step is located in the
+
+#### 3.Model Architecture
+The code for my final model is located in the 11th cell of the ipython notebook.
 
 My final model consisted of the following layers:
 
 | Layer         		|     Description	        					|
 |:---------------------:|:---------------------------------------------:|
-| Input         		| 32x32x3 RGB image   							|
+| Input         		| 32x32x3 YUV image   							|
 | Convolution 5x5     	| 1x1 stride, valid padding, outputs 28x28x24 	|
 | RELU					|												|
-| Max pooling	      	| 2x2 ksize, 2x2 stride,  outputs 14x14x24 				|
+| Max pooling	      	| 2x2 kernel size, 2x2 stride,  outputs 14x14x24 				|
 | Convolution 5x5	    | 1x1 stride, valid padding, outputs 10x10x64      									|
 |	RELU					|												|
-| Max pooling	      	| 2x2 ksize, 2x2 stride,  outputs 5x5x64 				|
+| Max pooling	      	| 2x2 kernel size, 2x2 stride,  outputs 5x5x64 				|
 |	Flatten				|	outputs 1600x1											|
 | Fully connected	layer 1	| inputs 1600, outputs 480        									|
 |	RELU					|												|
@@ -96,24 +102,26 @@ My final model consisted of the following layers:
 |	RELU					|												|
 | Fully connected	layer 3	| inputs 120, outputs 84        									|
 |	RELU					|												|
-| Fully connected	layer 3	| inputs 84, outputs 43        									|
+| Fully connected	layer 4	| inputs 84, outputs 43        									|
 |	Softmax					|												||
 
+#### 4. Train the model
 
-#### 4. Describe how, and identify where in your code, you trained your model. The discussion can include the type of optimizer, the batch size, number of epochs and any hyperparameters such as learning rate.
+The code for training the model is located in the 10th to 14th code cells of the ipython notebook.
 
-The code for training the model is located in the eigth cell of the ipython notebook.
-
-To train the model, I used an ....
+To train the model, I used an Adam optimizer to optimize with minimum mean of cross entropy. I used learning rate of 0.001 and batch size of 128. I run 20 epochs for the training.
 
 #### 5. Describe the approach taken for finding a solution. Include in the discussion the results on the training, validation and test sets and where in the code these were calculated. Your approach may have been an iterative process, in which case, outline the steps you took to get to the final solution and why you chose those steps. Perhaps your solution involved an already well known implementation or architecture. In this case, discuss why you think the architecture is suitable for the current problem.
 
-The code for calculating the accuracy of the model is located in the ninth cell of the Ipython notebook.
+The code for calculating the accuracy of the model is located in the 14th cell of the Ipython notebook.
 
 My final model results were:
 * training set accuracy of ?
 * validation set accuracy of ?
 * test set accuracy of ?
+
+I used Le-Net architecture as a starting point. I tried
+
 
 If an iterative approach was chosen:
 * What was the first architecture that was tried and why was it chosen?
